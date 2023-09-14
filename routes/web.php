@@ -262,3 +262,7 @@ Route::get('delete/{id}',[JobPreferencesController::class,'delete'])->name('job-
 // companypakage
 Route::resource('/company-pakage', CompaniesPakagesController::class);
 Route::get('destroy/{id}',[CompaniesPakagesController::class,'destroy'])->name('company-pakage.delete');
+
+//employee register
+Route::get('/employee/register', $controller_path . '\employee\RegisterBasic@index')->name('auth-eregister-basic');
+Route::post('/employee/register/create', $controller_path . '\employee\RegisterBasic@store')->name('auth-eregister-store');
