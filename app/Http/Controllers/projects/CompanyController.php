@@ -10,20 +10,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Session;
 use Illuminate\Support\Str;
+use App\Traits\ResponseFormat;
 use Hash;
 use DB;
+use Exception;
 
 class CompanyController extends Controller
 {
+    use ResponseFormat;
     public function index()
     {
         $pageConfigs = ['myLayout' => 'blank'];
         return view('content.authentications.auth-login-basic', ['pageConfigs' => $pageConfigs]);
     } 
     
-    public function customLogin(Request $request)
-    {   
-
+    public function customLogin(Request $request){   
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -38,8 +39,7 @@ class CompanyController extends Controller
         return redirect("company/login")->withSuccess('Oppes! You have entered invalid credentials');
     }
     
-    public function dashboard()
-    {
+    public function dashboard(){
         if(Auth::check()){
             return view('companypakage.list');
         }
@@ -52,74 +52,101 @@ class CompanyController extends Controller
         return view('content.authentications.auth-register-basic', ['pageConfigs' => $pageConfigs]);
 
     }
+   
     
-    public function customRegistration(Request $request)
-    {
+    public function customRegistration(Request $request){
+        
         $validatedData = $request->validate([
                 'companyname' => 'required',
-                'email' => 'required|email|unique:companies',
-                'password' => 'required|min:6',
-                'confirmpassword' => 'required_with:password|same:password|min:6'
+                // 'email' => 'required|email|unique:companies',
+                // 'password' => 'required|min:6',
+                // 'confirmpassword' => 'required_with:password|same:password|min:6'
             ], 
             [
                 'companyname.required' => 'company name field is required.',
-                'email.required' => 'email field is required.',
-                'password.required' => 'password field is required.',
-                'confirmpassword.required' => 'confirm password field is required.',
-                'confirmpassword.min' => 'confirm password must be at least 6 characters long.',
+                // 'email.required' => 'email field is required.',
+                // 'password.required' => 'password field is required.',
+                // 'confirmpassword.required' => 'confirm password field is required.',
+                // 'confirmpassword.min' => 'confirm password must be at least 6 characters long.',
             ]);
             
-            //Email Verify
-            $token = Str::random(64); 
-            $otp = rand(1000,9999);
             
-            $companies = new Companies();
-            $companies->CompanyName = $request-> companyname ;
-            // $companies->CompanyImage = $request-> companyimage ;
-            $companies->Email = $request-> email ;
-            $companies->password = Hash::make($request->input('password'));
-            $companies->Website = $request-> website ;
-            $companies->Phone = $request-> phone ;
-            $companies->Mobile = $request-> mobile ;
-            $companies->ContactName = $request-> contactname ;
-            $companies->Address = $request-> address ;
-            $companies->City = $request-> city ;
-            $companies->State = $request-> state ;
-            $companies->Country = $request-> country ;
-            $companies->GSTIN = $request-> gstin ;
-            $companies->PAN = $request-> pan ;
-            $companies->IdentityProof = $request-> identityproof ;
-            $companies->CAffiliateCode = $request-> caffiliateCode ;
-            $companies->FromCAff = $request-> fromcaff ;
-            $companies->FromEAff = $request-> fromeaff ;
-            $companies->token = $token; 
-            $companies->EmailVerifyOtp = $otp;
-            $companies->save();
-            $details = [
-                'email' => $companies->Email,
-                'otp' => $companies->EmailVerifyOtp,
-            ];
-            Mail::to($companies->Email)->send(new \App\Mail\otpregistermail($details));
-            Mail::to("parthshingala321@gmail.com")->send(new \App\Mail\adminverifyemail($details));
-
-            return redirect()->route("emailVerifyOtp".$companies->id);
+            $token = Str::random(64); //Email Verify Token Generate
+            $otp = rand(1000,9999);
+            $companies = Companies::where('email',$request->email)->first();
+            if(!empty($companies)){
+                $companies->CompanyName = $request-> companyname ;
+                // $companies->CompanyImage = $request-> companyimage ;
+                $companies->Email = $request-> email ;
+                $companies->password = Hash::make($request->input('password'));
+                $companies->Website = $request-> website ;
+                $companies->Phone = $request-> phone ;
+                $companies->Mobile = $request-> mobile ;
+                $companies->ContactName = $request-> contactname ;
+                $companies->Address = $request-> address ;
+                $companies->City = $request-> city ;
+                $companies->State = $request-> state ;
+                $companies->Country = $request-> country ;
+                $companies->GSTIN = $request-> gstin ;
+                $companies->PAN = $request-> pan ;
+                $companies->IdentityProof = $request-> identityproof ;
+                $companies->CAffiliateCode = $request-> caffiliateCode ;
+                $companies->FromCAff = $request-> fromcaff ;
+                $companies->FromEAff = $request-> fromeaff ;
+                $companies->token = $token; 
+                $companies->EmailVerifyOtp = $otp;
+                $companies->save();
+                $details = [
+                    'email' => $companies->Email,
+                    'otp' => $companies->EmailVerifyOtp,
+                ];
+                Mail::to($companies->Email)->send(new \App\Mail\otpregistermail($details));
+                Mail::to("parthshingala321@gmail.com")->send(new \App\Mail\adminverifyemail($details));
+                return redirect()->route("emailVerifyOtp".$companies->id);
+            }
+            //$companies = new Companies();
+            // $companies->CompanyName = $request-> companyname ;
+            // // $companies->CompanyImage = $request-> companyimage ;
+            // $companies->Email = $request-> email ;
+            // $companies->password = Hash::make($request->input('password'));
+            // $companies->Website = $request-> website ;
+            // $companies->Phone = $request-> phone ;
+            // $companies->Mobile = $request-> mobile ;
+            // $companies->ContactName = $request-> contactname ;
+            // $companies->Address = $request-> address ;
+            // $companies->City = $request-> city ;
+            // $companies->State = $request-> state ;
+            // $companies->Country = $request-> country ;
+            // $companies->GSTIN = $request-> gstin ;
+            // $companies->PAN = $request-> pan ;
+            // $companies->IdentityProof = $request-> identityproof ;
+            // $companies->CAffiliateCode = $request-> caffiliateCode ;
+            // $companies->FromCAff = $request-> fromcaff ;
+            // $companies->FromEAff = $request-> fromeaff ;
+            // $companies->token = $token; 
+            // $companies->EmailVerifyOtp = $otp;
+            // $companies->save();
+            // $details = [
+            //     'email' => $companies->Email,
+            //     'otp' => $companies->EmailVerifyOtp,
+            // ];
+            // Mail::to($companies->Email)->send(new \App\Mail\otpregistermail($details));
+            // Mail::to("parthshingala321@gmail.com")->send(new \App\Mail\adminverifyemail($details));
+            // return redirect()->route("emailVerifyOtp".$companies->id);
     }
 
-    public function emailVerifyOtp()
-    {
+    public function emailVerifyOtp(){
         $pageConfigs = ['myLayout' => 'blank'];
         return view('content.authentications.auth-verify-email-otp-basic', ['pageConfigs' => $pageConfigs]);
     }
 
-    public function thankyou()
-    {
+    public function thankyou(){
         $pageConfigs = ['myLayout' => 'blank'];
         return view('content.authentications.auth-thankyou-basic', ['pageConfigs' => $pageConfigs]);
     }
     
  
-    public function emailVerifyLogin(Request $request)
-    {   
+    public function emailVerifyLogin(Request $request){   
         $userEnteredOtp = $request->input('otp');
         $storedotp = Companies::select('EmailVerifyOtp','EmailVerify', 'Com_Id')->where('EmailVerifyOtp',$userEnteredOtp)->first();
         $companies = Companies::find($storedotp->Com_Id);
@@ -147,8 +174,7 @@ class CompanyController extends Controller
     }
     
    
-    public function verifyAccount($token)
-    {   
+    public function verifyAccount($token){   
         $verifyUser = Companies::where('token', $token)->first();
         $message = 'Sorry your email cannot be identified.';
         
@@ -166,19 +192,16 @@ class CompanyController extends Controller
       return redirect()->route('login')->with('message', $message);
     }
 
-    public function signOut() 
-    {
+    public function signOut() {
         Session::flush();
         Auth::logout();
         return Redirect('company/login');
     }
 
-    public function changePassword()
-    {
+    public function changePassword(){
         return view('auth.changePassword');
     }
-    public function updateChangePassword(Request $request)
-    {
+    public function updateChangePassword(Request $request){
         $request->validate([
             'currentpassword' => 'required',
             'newpassword' => 'required|min:6',
@@ -194,5 +217,41 @@ class CompanyController extends Controller
         ]);
         session()->flash('success', 'Your password has been changed successfully.');
         return redirect()->route('changePassword')->with("massage", "Change your password");
+    }
+    
+    public function GenerateRefferCode($companyDetail){
+        if(!empty($companyDetail)){
+            $reffercode = 'C'.strtoupper(substr($companyDetail->CompanyName,0,5));
+            return  
+                (strlen($companyDetail->Com_Id) > 1) ? ($reffercode.$companyDetail->Com_Id) : $reffercode.'0'.$companyDetail->Com_Id;
+        }
+        return '';
+    }
+    
+    public function basicInfoStore(Request $request){
+        try{
+            $companyName = $request->input('companyName');
+            $email = $request->input('email');
+            $password = $request->input('password');
+            $companies = Companies::where('email',$email)->first();
+            if(empty($companies)){
+                $companies = new Companies();
+                $companies->CompanyName = $companyName ;
+                $companies->Email = $email ;
+                $companies->password = Hash::make($password);
+                $companies->CAffiliateCode = self::GenerateRefferCode($companies);
+                $companies->save();
+                if($companies){
+                    $companies->CAffiliateCode = self::GenerateRefferCode($companies);
+                    $companies->save();
+                    return  $this->sendResponse($companies,'Company Register...');
+                }
+            }else{
+                return  $this->sendResponse($companies,'Company already register...');  
+            }
+            
+        }catch(\Exception $exception){
+            return $this->sendError($exception->getMessage(),404);
+        }
     }
 }

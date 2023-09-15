@@ -24,6 +24,7 @@ Route::get('company/login', [CompanyController::class, 'index'])->name('login');
 Route::post('custom-login', [CompanyController::class, 'customLogin'])->name('login.custom'); 
 Route::get('registration', [CompanyController::class, 'registration'])->name('register-user');
 Route::get('/company/register', [CompanyController::class, 'create'])->name('auth-register-basic');
+Route::post('company/register/basic-info',[CompanyController::class, 'basicInfoStore'])->name('basicInfoStore');
 Route::post('/company/register/store', [CompanyController::class, 'customRegistration'])->name('register.custom'); 
 Route::get('signout', [CompanyController::class, 'signOut'])->name('signout');
 
@@ -34,13 +35,29 @@ Route::post('updateChangePassword', [CompanyController::class, 'updateChangePass
 
 
 //emailVarify
-// Route::get('account/verify/{token}', [CompanyController::class, 'verifyAccount'])->name('user.verify');
 Route::get('emailVerifyOtp', [CompanyController::class, 'emailVerifyOtp'])->name('emailVerifyOtp');
 Route::post('emailVerifyLogin', [CompanyController::class, 'emailVerifyLogin'])->name('emailVerifyLogin');
 
 
 // thank you
 Route::get('thankyou', [CompanyController::class, 'thankyou'])->name('thankyou');
+
+
+//Profile Edit Ragister
+// Route::resource('/profile-user', ProfileController::class);
+Route::get('editProfile',[ProfileController::class,'editProfile'])->name('editProfile');
+
+// JobPreferences
+Route::resource('/job-post', JobPreferencesController::class);
+Route::get('delete/{id}',[JobPreferencesController::class,'delete'])->name('job-preferences.destroy');
+
+// companypakage
+Route::resource('/company-pakage', CompaniesPakagesController::class);
+Route::get('destroy/{id}',[CompaniesPakagesController::class,'destroy'])->name('company-pakage.delete');
+
+
+
+
 
 // Route::middleware(['web', 'admin'])->group(function () use($controller_path) {
     Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
@@ -263,7 +280,3 @@ Route::get('delete/{id}',[JobPreferencesController::class,'delete'])->name('job-
 // companypakage
 Route::resource('/company-pakage', CompaniesPakagesController::class);
 Route::get('destroy/{id}',[CompaniesPakagesController::class,'destroy'])->name('company-pakage.delete');
-
-//employee register
-Route::get('/employee/register', $controller_path . '\employee\RegisterBasic@index')->name('auth-eregister-basic');
-Route::post('/employee/register/create', $controller_path . '\employee\RegisterBasic@store')->name('auth-eregister-store');
