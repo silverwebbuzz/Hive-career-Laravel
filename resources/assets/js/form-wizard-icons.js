@@ -30,7 +30,6 @@ $(function () {
   // Icons Wizard
   // --------------------------------------------------------------------
   const wizardIcons = document.querySelector('.wizard-icons-example');
-
   if (typeof wizardIcons !== undefined && wizardIcons !== null) {
     const wizardIconsBtnNextList = [].slice.call(wizardIcons.querySelectorAll('.btn-next')),
       wizardIconsBtnPrevList = [].slice.call(wizardIcons.querySelectorAll('.btn-prev')),

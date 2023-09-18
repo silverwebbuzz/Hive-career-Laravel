@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\laravel_example\UserManagement;
-use App\Http\Controllers\projects\AdminController;
+use App\Http\Controllers\projects\CompanyController;
 use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\jobpreferences\JobPreferencesController;
 use App\Http\Controllers\conpanypakages\CompaniesPakagesController;
@@ -19,27 +19,45 @@ use App\Http\Controllers\conpanypakages\CompaniesPakagesController;
 
 $controller_path = 'App\Http\Controllers';
 
-Route::get('dashboard', [AdminController::class, 'dashboard']); 
-Route::get('company/login', [AdminController::class, 'index'])->name('login');
-Route::post('custom-login', [AdminController::class, 'customLogin'])->name('login.custom'); 
-Route::get('registration', [AdminController::class, 'registration'])->name('register-user');
-Route::post('custom-registration', [AdminController::class, 'customRegistration'])->name('register.custom'); 
-Route::get('signout', [AdminController::class, 'signOut'])->name('signout');
+Route::get('dashboard', [CompanyController::class, 'dashboard']); 
+Route::get('company/login', [CompanyController::class, 'index'])->name('login');
+Route::post('custom-login', [CompanyController::class, 'customLogin'])->name('login.custom'); 
+Route::get('registration', [CompanyController::class, 'registration'])->name('register-user');
+Route::get('/company/register', [CompanyController::class, 'create'])->name('auth-register-basic');
+Route::post('company/register/basic-info',[CompanyController::class, 'basicInfoStore'])->name('basicInfoStore');
+Route::post('/company/register/store', [CompanyController::class, 'customRegistration'])->name('register.custom'); 
+Route::get('signout', [CompanyController::class, 'signOut'])->name('signout');
 
 //changePassword
-Route::get('changePassword', [AdminController::class, 'changePassword'])->name('changePassword');
-Route::post('updateChangePassword', [AdminController::class, 'updateChangePassword'])->name('updateChangePassword');
+Route::get('changePassword', [CompanyController::class, 'changePassword'])->name('changePassword');
+Route::post('updateChangePassword', [CompanyController::class, 'updateChangePassword'])->name('updateChangePassword');
 
 
 
 //emailVarify
-// Route::get('account/verify/{token}', [AdminController::class, 'verifyAccount'])->name('user.verify');
-Route::get('emailVerifyOtp', [AdminController::class, 'emailVerifyOtp'])->name('emailVerifyOtp');
-Route::post('emailVerifyLogin', [AdminController::class, 'emailVerifyLogin'])->name('emailVerifyLogin');
+Route::get('emailVerifyOtp', [CompanyController::class, 'emailVerifyOtp'])->name('emailVerifyOtp');
+Route::post('emailVerifyLogin', [CompanyController::class, 'emailVerifyLogin'])->name('emailVerifyLogin');
 
 
 // thank you
-Route::get('thankyou', [AdminController::class, 'thankyou'])->name('thankyou');
+Route::get('thankyou', [CompanyController::class, 'thankyou'])->name('thankyou');
+
+
+//Profile Edit Ragister
+// Route::resource('/profile-user', ProfileController::class);
+Route::get('editProfile',[ProfileController::class,'editProfile'])->name('editProfile');
+
+// JobPreferences
+Route::resource('/job-post', JobPreferencesController::class);
+Route::get('delete/{id}',[JobPreferencesController::class,'delete'])->name('job-preferences.destroy');
+
+// companypakage
+Route::resource('/company-pakage', CompaniesPakagesController::class);
+Route::get('destroy/{id}',[CompaniesPakagesController::class,'destroy'])->name('company-pakage.delete');
+
+
+
+
 
 // Route::middleware(['web', 'admin'])->group(function () use($controller_path) {
     Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
@@ -56,7 +74,7 @@ Route::get('lang/{locale}', $controller_path . '\language\LanguageController@swa
 // authentication
 Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
 Route::get('/auth/login-cover', $controller_path . '\authentications\LoginCover@index')->name('auth-login-cover');
-Route::get('/company/register', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
+// Route::get('/company/register', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
 Route::get('/auth/register-cover', $controller_path . '\authentications\RegisterCover@index')->name('auth-register-cover');
 Route::get('/auth/register-multisteps', $controller_path . '\authentications\RegisterMultiSteps@index')->name('auth-register-multisteps');
 Route::get('/auth/verify-email-basic', $controller_path . '\authentications\VerifyEmailBasic@index')->name('auth-verify-email-basic');
@@ -262,7 +280,3 @@ Route::get('delete/{id}',[JobPreferencesController::class,'delete'])->name('job-
 // companypakage
 Route::resource('/company-pakage', CompaniesPakagesController::class);
 Route::get('destroy/{id}',[CompaniesPakagesController::class,'destroy'])->name('company-pakage.delete');
-
-//employee register
-Route::get('/employee/register', $controller_path . '\employee\RegisterBasic@index')->name('auth-eregister-basic');
-Route::post('/employee/register/create', $controller_path . '\employee\RegisterBasic@store')->name('auth-eregister-store');

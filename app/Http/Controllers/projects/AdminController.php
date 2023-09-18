@@ -182,7 +182,7 @@ class AdminController extends Controller
     {
         Session::flush();
         Auth::logout();
-        return Redirect('login');
+        return Redirect('company/login');
     }
 
     public function changePassword()

@@ -6,7 +6,6 @@
 
 (function () {
   const startBtn = document.querySelector('#shepherd-example');
-
   function setupTour(tour) {
     const backBtnClass = 'btn btn-sm btn-label-secondary md-btn-flat',
       nextBtnClass = 'btn btn-sm btn-primary btn-next';
