@@ -19115,6 +19115,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   -ms-flex: 0 1 auto;
       flex: 0 1 auto;
   margin: 0;
+  text-decoration: none;
 }
 .menu-item.active > .menu-link.menu-toggle {
   font-weight: 500;
