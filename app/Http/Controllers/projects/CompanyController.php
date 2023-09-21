@@ -103,24 +103,28 @@ class CompanyController extends Controller
                 ];
                 Mail::to($companies->Email)->send(new \App\Mail\otpregistermail($details));
                 Mail::to("parthshingala321@gmail.com")->send(new \App\Mail\adminverifyemail($details));
-                return redirect()->route("emailVerifyOtp".$companies->id);
+                return redirect()->route("emailVerifyOtp",$companies->Com_Id);
+                // return redirect()->route("emailVerifyOtp", ['Com_Id' => $companies->id]);
+
             }
     }
 
-    public function emailVerifyOtp(){
+    public function emailVerifyOtp($Com_Id){
+        $companies = Companies::find($Com_Id);
         $pageConfigs = ['myLayout' => 'blank'];
-        return view('content.authentications.auth-verify-email-otp-basic', ['pageConfigs' => $pageConfigs]);
+        return view('content.authentications.auth-verify-email-otp-basic',compact('companies', 'Com_Id'),['pageConfigs' => $pageConfigs]);
     }
     public function resednGenerateOTP()
     {
-        return Str::rand(4); // Generates a 4-digit OTP
-        // $otp = rand(1000,9999);
+        // return Str::rand(1000,9999); // Generates a 4-digit OTP
+        $otp = rand(1000,9999);
+        return $otp;
     }
-    public function resendOtp($id)
+    public function resendOtp($Com_Id)
     {
         // Find the company by ID
-        $companies = Companies::find($id);
-        dd($companies);
+        $companies = Companies::find($Com_Id);
+        // dd($companies->email);
         if (!$companies) {
             // Handle the case where the user doesn't exist
             // You can redirect or return an error message
@@ -132,12 +136,12 @@ class CompanyController extends Controller
         $companies->EmailVerifyOtp = $otp;
         $companies->save();
         $details = [
-            'email' => $companies->Email,
+            'email' => $companies->email,
             'otp' => $companies->EmailVerifyOtp,
         ];
-        Mail::to($companies->Email)->send(new \App\Mail\otpregistermail($details));
-        // return redirect()->route("emailVerifyOtp".$companies->id);
-        return view('content.authentications.auth-verify-email-otp-basic')->with('companies', $companies);
+        Mail::to($companies->email)->send(new \App\Mail\otpregistermail($details));
+        $pageConfigs = ['myLayout' => 'blank'];
+        return view('content.authentications.auth-verify-email-otp-basic',compact('companies', 'Com_Id'),['pageConfigs' => $pageConfigs]);
     }
 
     // public function resendOtp($Com_Id)
@@ -210,6 +214,7 @@ class CompanyController extends Controller
     
     public function emailVerifyLogin(Request $request) {
         $userEnteredOtp = $request->input('otp');
+        $id = $request->input('Com_Id');
         
         // Attempt to retrieve a record from the database based on the entered OTP
         $storedotp = Companies::select('EmailVerifyOtp', 'EmailVerify', 'Com_Id')
@@ -231,19 +236,19 @@ class CompanyController extends Controller
                         return redirect()->route('thankyou'); // Successful verification
                     } else {
                         // Company not found
-                        return redirect()->route('emailVerifyOtp');
+                        return redirect()->route('emailVerifyOtp', ['Com_id' => $id])->with('error', 'Company not found');
                     }
                 } else {
                     // Email already verified
-                    return redirect()->route('emailVerifyOtp');
+                    return redirect()->route('emailVerifyOtp', ['Com_id' => $id])->with('error', 'Email already verified');
                 }
             } else {
                 // OTP doesn't match
-                return redirect()->route('emailVerifyOtp');
+                return redirect()->route('emailVerifyOtp', ['Com_id' => $id])->with('error', 'OTP Not matched');
             }
         } else {
             // OTP not found in the database
-            return redirect()->route('emailVerifyOtp');
+            return redirect()->route('emailVerifyOtp', ['Com_id' => $id])->with('error', 'OTP Not matched');
         }
     }
     

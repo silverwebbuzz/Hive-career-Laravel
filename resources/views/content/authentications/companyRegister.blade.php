@@ -190,7 +190,7 @@
                                     <input type="text" id="referralcode" name="referralcode" class="form-control" disabled placeholder=" Referral Code" />
                                 </div>
                                 <div class="col-12 d-flex justify-content-between">
-                                    <a href="#step1" class="btn btn-label-secondary btn-prev"><span class="align-middle d-sm-inline-block d-none me-sm-1">Previous</span> <i class="ti ti-arrow-left me-sm-1"></i></a>
+                                    <a href="#step1" class="btn btn-primary btn-prev"><span class="align-middle d-sm-inline-block d-none me-sm-1">Previous</span> <i class="ti ti-arrow-left me-sm-1"></i></a>
                                     <button type="submit" value="submit" class="btn btn-primary">Submit</button>
 
                                 </div>

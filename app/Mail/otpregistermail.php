@@ -23,7 +23,7 @@ class otpregistermail extends Mailable
 
     public function build()
     {
-        return $this->subject('Mail from ItSolutionStuff.com')
+        return $this->subject('Hive Career verification code')
                     ->view('emails.otpsendMail');
     }
 
