@@ -68,16 +68,23 @@ $configData = Helper::appClasses();
                         </div>
                         <!-- Create a hidden field which is combined by 3 fields above -->
                         <input type="hidden" name="otp" />
+                        <input type="hidden" name="Com_Id" value="{{ $Com_Id }}">
                     </div>
-                    <button class="btn btn-primary d-grid w-100 mb-3" type="submit" value="submit">
+                    <button class=" btn btn-primary d-grid w-100 mb-3" type="submit" value="submit">
                         Verify my account
                     </button>
                     <div class="text-center">Didn't get the code?
-                        <a href="">
+                        <a href="{{route('resendOtp',['Com_id' =>$Com_Id])}}">
                             Resend
                         </a>
+                        {{-- <a href="">
+                            Resend
+                        </a> --}}
                     </div>
                 </form>
+                @if (session('error'))
+                <p class="text-danger text-center mt-3"><strong>{{ session('error') }}</strong></p>
+                @endif
             </div>
         </div>
         <!-- /Email Verification -->

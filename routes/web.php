@@ -35,11 +35,11 @@ Route::post('updateChangePassword', [CompanyController::class, 'updateChangePass
 
 
 //emailVarify
-Route::get('emailVerifyOtp', [CompanyController::class, 'emailVerifyOtp'])->name('emailVerifyOtp');
+Route::get('emailVerifyOtp/{Com_id}', [CompanyController::class, 'emailVerifyOtp'])->name('emailVerifyOtp');
 Route::post('emailVerifyLogin', [CompanyController::class, 'emailVerifyLogin'])->name('emailVerifyLogin');
 
 // resend Otp
-Route::get('resendOtp/{id}', [CompanyController::class, 'resendOtp'])->name('resendOtp');
+Route::get('resendOtp/{Com_id}', [CompanyController::class, 'resendOtp'])->name('resendOtp');
 
 
 // thank you
