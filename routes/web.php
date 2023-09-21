@@ -38,6 +38,9 @@ Route::post('updateChangePassword', [CompanyController::class, 'updateChangePass
 Route::get('emailVerifyOtp', [CompanyController::class, 'emailVerifyOtp'])->name('emailVerifyOtp');
 Route::post('emailVerifyLogin', [CompanyController::class, 'emailVerifyLogin'])->name('emailVerifyLogin');
 
+// resend Otp
+Route::get('resendOtp/{id}', [CompanyController::class, 'resendOtp'])->name('resendOtp');
+
 
 // thank you
 Route::get('thankyou', [CompanyController::class, 'thankyou'])->name('thankyou');
@@ -268,15 +271,3 @@ Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('map
 // laravel example
 Route::get('/laravel/user-management', [UserManagement::class, 'UserManagement'])->name('laravel-example-user-management');
 Route::resource('/user-list', UserManagement::class);
-
-//Profile Edit Ragister
-// Route::resource('/profile-user', ProfileController::class);
-Route::get('editProfile',[ProfileController::class,'editProfile'])->name('editProfile');
-
-// JobPreferences
-Route::resource('/job-post', JobPreferencesController::class);
-Route::get('delete/{id}',[JobPreferencesController::class,'delete'])->name('job-preferences.destroy');
-
-// companypakage
-Route::resource('/company-pakage', CompaniesPakagesController::class);
-Route::get('destroy/{id}',[CompaniesPakagesController::class,'destroy'])->name('company-pakage.delete');

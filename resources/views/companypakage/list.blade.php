@@ -3,10 +3,12 @@
 @endisset
 @php
 $configData = Helper::appClasses();
+
 @endphp
 @extends('layouts/commonMaster' )
 
 @php
+
 /* Display elements */
 $contentNavbar = ($contentNavbar ?? true);
 $containerNav = ($containerNav ?? 'container-xxl');
@@ -33,6 +35,7 @@ $container = (isset($configData['contentLayout']) && $configData['contentLayout'
 @endphp
 
 @section('layoutContent')
+
 <div class="layout-wrapper layout-content-navbar {{ $isMenu ? '' : 'layout-without-menu' }}">
     <div class="layout-container">
 
