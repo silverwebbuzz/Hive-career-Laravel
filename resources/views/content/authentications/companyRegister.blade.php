@@ -73,17 +73,17 @@
                                     <label class="form-label" for="companyname">Company Name</label>
                                     <input type="text" id="companyname" name="companyname" class="form-control" value="{{ old('companyname') }}" placeholder="Enter Company" />
                                     <span class="error" id="companynameError"></span>
-                                    {{-- @error('companyname')
+                                    @error('companyname')
                                     <span class="text-danger">{{ $message }}</span>
-                                    @enderror --}}
+                                    @enderror
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="form-label" for="email1">Company Email</label>
                                     <input type="text" id="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="Enter Email" />
                                     <span class="error" id="emailError"></span>
-                                    {{-- @error('email')
+                                    @error('email')
                                     <span class="text-danger">{{ $message }}</span>
-                                    @enderror --}}
+                                    @enderror
                                 </div>
                                 <div class="col-sm-6 form-password-toggle">
                                     <label class="form-label" for="password">Password</label>
@@ -92,9 +92,9 @@
                                         <span class="input-group-text cursor-pointer" id="password"><i class="ti ti-eye-off"></i></span>
                                     </div>
                                     <span class="error" id="passwordError"></span>
-                                    {{-- @error('password')
+                                    @error('password')
                                     <span class="text-danger">{{ $message }}</span>
-                                    @enderror --}}
+                                    @enderror
                                 </div>
                                 <div class="col-sm-6 form-password-toggle">
                                     <label class="form-label" for="confirm-password61">Confirm Password</label>
@@ -103,16 +103,15 @@
                                         <span class="input-group-text cursor-pointer" id="confirm-password7"><i class="ti ti-eye-off"></i></span>
                                     </div>
                                     <span class="error" id="confirmpasswordError"></span>
-                                    {{-- @error('confirmpassword')
+                                    @error('confirmpassword')
                                     <span class="text-danger">{{ $message }}</span>
-                                    @enderror --}}
+                                    @enderror
                                 </div>
                                 <div class="col-12 d-flex justify-content-between">
                                     <button class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left me-sm-1"></i>
                                         <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                     </button>
                                     <button type="button" class="btn btn-primary btn-next-page" id="companydetailse"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
-                                    {{-- <a href="#Company-info" class="btn btn-primary btn-next"><span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></a> --}}
                                 </div>
                             </div>
                         </div>
@@ -154,59 +153,55 @@
                                         <option>Jamnagar</option>
                                     </select>
                                 </div>
-                                {{-- <div class="col-sm-6">
+                                <div class="col-sm-6">
                                     <label class="form-label" for="state">State</label>
-                                    <input type="text" id="state" name="state" class="form-control" value="{{ old('state') }}" placeholder=" Company State" />
-                            </div> --}}
-                            <div class="col-sm-6">
-                                <label class="form-label" for="state">State</label>
-                                <select class="select2" id="state" name="state" value="{{ old('state') }}">
-                                    <option label=" "></option>
-                                    <option>Gujarat</option>
-                                    <option>Maharastra</option>
-                                    <option>Punjab</option>
-                                    <option>Delhi</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="country">Country</label>
-                                <select class="select2" id="country" name="country" value="{{ old('country') }}">
-                                    <option label=" "></option>
-                                    <option>India</option>
-                                    <option>America</option>
-                                    <option>Nepal</option>
-                                    <option>Dubai</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="gstin">GSTIN</label>
-                                <input type="text" id="gstin" name="gstin" class="form-control" value="{{ old('gstin') }}" placeholder="22AAAAA0000A1Z5" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="pan">PAN</label>
-                                <input type="text" id="pan" name="pan" class="form-control" value="{{ old('pan') }}" placeholder="LHLPR9568H" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="identityproof">Identity Proof</label>
-                                <input type="file" id="identityproof" name="identityproof" class="form-control" value="{{ old('identityproof') }}" placeholder=" Company Identity Proof" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="referralcode">Referral Code</label>
-                                <input type="text" id="referralcode" name="referralcode" class="form-control" disabled placeholder=" Referral Code" />
-                            </div>
-                            <div class="col-12 d-flex justify-content-between">
-                                <a href="#step1" class="btn btn-label-secondary btn-prev"><span class="align-middle d-sm-inline-block d-none me-sm-1">Previous</span> <i class="ti ti-arrow-left me-sm-1"></i></a>
-                                <button type="submit" value="submit" class="btn btn-success">Submit</button>
+                                    <select class="select2" id="state" name="state" value="{{ old('state') }}">
+                                        <option label=" "></option>
+                                        <option>Gujarat</option>
+                                        <option>Maharastra</option>
+                                        <option>Punjab</option>
+                                        <option>Delhi</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="country">Country</label>
+                                    <select class="select2" id="country" name="country" value="{{ old('country') }}">
+                                        <option label=" "></option>
+                                        <option>India</option>
+                                        <option>America</option>
+                                        <option>Nepal</option>
+                                        <option>Dubai</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="gstin">GSTIN</label>
+                                    <input type="text" id="gstin" name="gstin" class="form-control" value="{{ old('gstin') }}" placeholder="22AAAAA0000A1Z5" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="pan">PAN</label>
+                                    <input type="text" id="pan" name="pan" class="form-control" value="{{ old('pan') }}" placeholder="LHLPR9568H" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="identityproof">Identity Proof</label>
+                                    <input type="file" id="identityproof" name="identityproof" class="form-control" value="{{ old('identityproof') }}" placeholder=" Company Identity Proof" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="referralcode">Referral Code</label>
+                                    <input type="text" id="referralcode" name="referralcode" class="form-control" disabled placeholder=" Referral Code" />
+                                </div>
+                                <div class="col-12 d-flex justify-content-between">
+                                    <a href="#step1" class="btn btn-label-secondary btn-prev"><span class="align-middle d-sm-inline-block d-none me-sm-1">Previous</span> <i class="ti ti-arrow-left me-sm-1"></i></a>
+                                    <button type="submit" value="submit" class="btn btn-success">Submit</button>
 
+                                </div>
                             </div>
                         </div>
-                </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 @include('layouts/sections/footer/footer-auth')

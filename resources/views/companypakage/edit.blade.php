@@ -71,7 +71,7 @@ $container = (isset($configData['contentLayout']) && $configData['contentLayout'
                         @include('_partials/_modals/modal-pricing')
                         @endif
                         <!--/ pricingModal -->
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Form/</span>Add Companies pakages Details</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Form/</span>Update Companies pakages Details</h4>
 
                         {{-- create  --}}
                         <div class="col-xl">

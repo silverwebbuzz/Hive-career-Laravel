@@ -43,7 +43,7 @@ $configData = Helper::appClasses();
         </div>
         <!-- /Left Text -->
 
-        <!-- Two Steps Verification -->
+        <!-- Email Verification -->
         <div class="d-flex col-12 col-lg-5 align-items-center p-4 p-sm-5">
             <div class="w-px-400 mx-auto">
                 <!-- Logo -->
@@ -73,14 +73,14 @@ $configData = Helper::appClasses();
                         Verify my account
                     </button>
                     <div class="text-center">Didn't get the code?
-                        <a href="javascript:void(0);">
+                        <a href="">
                             Resend
                         </a>
                     </div>
                 </form>
             </div>
         </div>
-        <!-- /Two Steps Verification -->
+        <!-- /Email Verification -->
     </div>
 </div>
 @endsection

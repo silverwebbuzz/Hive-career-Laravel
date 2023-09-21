@@ -58,12 +58,13 @@ function ValidateRegiterCompany() {
         const companyNameInput = document.getElementById("companyname");
         const passwordInput = document.getElementById("password");
         const confirmPasswordInput = document.getElementById("confirmpassword");
-        // const email = document.getElementById("email").value;
         const emailInput = document.getElementById("email");
+        
         const companyName = companyNameInput.value.trim();;
         const password = passwordInput.value;
         const confirmPassword = confirmPasswordInput.value;
         const email = emailInput.value.trim(); // Trim the input
+        
         const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; 
         const companyformat = /^[a-zA-Z\s]+$/;
         // Clear previous error messages
@@ -72,14 +73,6 @@ function ValidateRegiterCompany() {
         document.getElementById("passwordError").textContent = "";
         document.getElementById("confirmpasswordError").textContent = "";
        
-         // Check if the company name matches the desired format
-        // if (!companyName.match(companyformat)) {
-        // companynameError.textContent = "Company Name should contain only alphabetic characters and spaces.";
-        // isValid = false;
-        // } else {
-        // companynameError.textContent = "";
-        // }
-
         if (companyName === "") {
             companynameError.textContent = "Company Name is required.";
             isValid = false;
@@ -139,7 +132,7 @@ function ValidateRegiterCompany() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
-                    var caffiliateCode = response.CAffiliateCode;
+                    var caffiliateCode = response.data.CAffiliateCode;
                     $("#referralcode").val(caffiliateCode);
                 },
                 error: function (xhr, status, error) {

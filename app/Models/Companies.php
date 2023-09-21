@@ -19,6 +19,7 @@ class Companies extends Authenticatable implements MustVerifyEmail
         'CompanyName',
         'Email',
         'EmailVerify',
+        'CAffiliateCode',
         'EmailVerifyOtp',
         'token',
         'Password',
