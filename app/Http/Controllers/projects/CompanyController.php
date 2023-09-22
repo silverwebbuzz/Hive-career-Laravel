@@ -18,11 +18,12 @@ use Exception;
 class CompanyController extends Controller
 {
     use ResponseFormat;
-    public function index()
-    {
+
+    public function index(){
         $pageConfigs = ['myLayout' => 'blank'];
         return view('content.authentications.auth-login-basic', ['pageConfigs' => $pageConfigs]);
     } 
+    
     
     public function customLogin(Request $request){   
         $request->validate([
@@ -53,8 +54,7 @@ class CompanyController extends Controller
         return view('content.authentications.companyRegister', ['pageConfigs' => $pageConfigs]);
 
     }
-   
-    
+
     public function customRegistration(Request $request){
         
         $validatedData = $request->validate([
